@@ -1,0 +1,16 @@
+html, body { 
+    width: 90%; 
+    height: 100%; 
+    margin: auto; 
+    padding: 0; 
+    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+    
+  } 
+
+.slider {
+    width: 90%;
+
+}
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}

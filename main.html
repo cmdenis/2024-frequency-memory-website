@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Line Chart JS</title>
+    <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css" integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js" integrity="sha384-483A6DwYfKeDa0Q52fJmxFXkcPCFfnXMoXblOkJ4JcA8zATN6Tm78UNL72AKk+0O" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/contrib/auto-render.min.js" integrity="sha384-yACMu8JWxKzSp/C1YV86pzGiQ/l1YUfE8oPuahJQxzehAjEt2GiQuy/BIvl9KyeF" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <script src="app.js"></script>
+    <script src="initial_values.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>  
+    <header>
+        <br>
+    </header>
+    
+    <div>
+    
+        <h1>Unclocklike biological oscillators with frequency memory </h1>
+
+        <p id = "getTest"> 
+            On this page, you will find some interactive simulations of some of the models presented in 
+            <a href="https://doi.org/10.48550/arXiv.2405.05180">this preprint</a>. Here we are simulating the system
+            
+            $$
+                \begin{cases}
+                \dot{\phi} = 2\pi f(x) + k \sin(\theta - \phi) \\
+                \dot{\theta} = 2 \pi \omega \\
+                \dot{x} = -\alpha \left(x - \frac{\dot{\phi}}{2\pi}\right)
+
+                \end{cases}
+            $$
+            Although this model could potentially be applied to other systems, it was initially motivated by work done on the entrainment of the segmentation
+            clock. In this context, the variables represent:
+            <ul>
+                <li>\(\phi\): The phase of the segmentation clock.</li>
+                <li>\(\theta \): The phase of the external oscillatory perturbation entraining the segmentation clock</li>
+                <li>\( x \): A phenomenological dynamical "memory" variable corresponding to the frequency of the segmentation clock.</li>
+            </ul>
+        </p>
+
+        <section> <!-- Coupling function -->
+            <h2 style="margin: 0;">
+                Coupling function
+            </h2>
+
+            <p>The \( f\) function used in the simulation is almost linear. It takes the form \( f(x) = x + \sigma \), where \(\sigma\) is a sigmoidal function  centered around \( 1 \).</p>
+
+            <div id="couplingFuncPlot" style="width:90%; align-items: center; margin-top: 0%;"></div>
+
+            <div class="slidecontainer">
+                
+                 
+                <input type="range" min="1" max="16" class="slider" id="pC1Slider" step = 0.1>
+                <p style="margin: 0; display: inline;">\( c_1 \):</p>
+                <p id="pC1" style="margin: 0; display: inline;"></p>
+                <script>document.getElementById("pC1Slider").value = c1</script>
+            </div>
+
+            <div class="slidecontainer">
+                
+                <input type="range" min="1" max="16" class="slider" id="pC2Slider" step = 0.1>
+                <p style="margin: 0; display: inline;">\( c_2 \):</p>
+                <p id="pC2"style="margin: 0; display: inline;"></p>
+                <script>document.getElementById("pC2Slider").value = c2</script>
+            </div>
+
+            <script>
+
+                function plotCoupling(c1, c2) {
+                    // x and y axis
+                    const xData = [];
+                    const yData = [];
+                    const straightLine = [];
+    
+                    for (let x = 0; x <= 2; x += 0.05){
+                        xData.push(x);
+                        yData.push(coupling_func(x, c1, c2));
+                        straightLine.push(x)
+                    }
+    
+                    const data = [
+                        {
+                            x:xData, 
+                            y:yData, 
+                            mode:"lines",
+                            name: "$f(x)$"
+                        },
+                        {
+                            x:xData, 
+                            y:straightLine, 
+                            mode:"lines", 
+                            name: "$y=x$",
+                            line: {
+                                color: 'rgb(0, 40, 50)',
+                                dash: "dash"
+                            }
+                        }, 
+
+                    ]
+                    const layout = {
+                        title: false,
+                        xaxis: {
+                            title: "$x$"
+                        },
+                        yaxis:{
+                            title: "$f(x)$"
+                        },
+                        margin: {
+                            t:10
+                        }
+                    };
+
+                    const config = {responsive: true}
+
+                    Plotly.newPlot("couplingFuncPlot", data, layout, config);
+                }
+                
+                plotCoupling(c1, c2)
+                
+            </script>
+
+        </section>
+
+        <section>
+            <h2>Simulations</h2>
+
+            <p> Here we show some simulations of the system.</p>
+            
+            <div id="simulationPlot" style="width:90%; align-items: center; margin-top: 0%;"></div>
+
+            <script>
+
+                function plotSim(c1, c2) {
+                    // First, we get the data from the simulations
+                    
+                    
+                    traj = integrator(
+                        direct_core_diff, 
+                        [p1, p2, p3],
+                        [u0_1, u0_2, u0_3], 
+                        0, 
+                        5, 
+                        0.01
+                    )
+
+                    console.log('THE TRAJ ARRAY:')
+                    console.log(traj)
+
+
+
+                    // x and y axis
+                    const timeData = traj[0];
+                    const phiData = traj[1];
+                    const thetaData = traj[2];
+                    const xData = traj[3];
+
+    
+                    const data = [
+                        { // Phi
+                            x:timeData, 
+                            y:phiData, 
+                            mode:"lines",
+                            name: "$\cos(\phi)$"
+                        },
+                        { // Theta
+                            x:timeData, 
+                            y:thetaData, 
+                            mode:"lines",
+                            name: "$\cos(\theta)$"
+                        },
+                        { // x
+                            x:timeData, 
+                            y:xData, 
+                            mode:"lines",
+                            name: "$x$"
+                        }
+                    ]
+                    const layout = {
+                        title: false,
+                        xaxis: {
+                            title: "Time"
+                        },
+                        yaxis:{
+                            title: "Amplitude"
+                        },
+                        margin: {
+                            t:10
+                        }
+                    };
+
+                    const config = {responsive: true}
+
+                    Plotly.newPlot("simulationPlot", data, layout, config);
+                }
+                
+                plotSim(c1, c2)
+                
+            </script>
+
+
+        </section>
+        
+
+
+
+        <div class="slidecontainer">
+            <input type="range" min="1" max="100" value="50" class="slider" id="myRange" oninput="myTestFunction()">
+        </div>
+
+        <p id = "paragraphTag"></p>
+
+        <script>
+            console.log(coupling_func(2));
+            document.getElementById("paragraphTag").innerHTML = coupling_func(2);
+        </script>
+
+
+    </div>
+
+    <script src="sliders_update.js"></script>
+  </body>
+</html>
