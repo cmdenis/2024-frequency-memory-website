@@ -28,7 +28,9 @@
     <div>
     
         <h1 style="margin-bottom: 0;">Unclocklike biological oscillators with frequency memory </h1>
-        <h4 style="margin-top: 0;">Christian M. Denis, Paul François</h4>
+        <h4 style="margin-top: 5px;">Christian M. Denis, Paul François</h4>
+        <hr>
+
 
         <section>
 
@@ -74,25 +76,45 @@
             </h2>
 
             <p>The \( f\) function used in the simulation is almost linear. It takes the form \( f(x) = x + \sigma \), where \(\sigma\) is a sigmoidal function  centered around \( 1 \).</p>
+            
 
-            <div id="couplingFuncPlot" style="width:90%; align-items: center; margin-top: 0%;"></div>
 
-            <div class="slidecontainer">
+            <div style="display: grid; grid-template-columns: 0.3fr 1fr; grid-auto-rows: minmax(300px, auto);">
+                <div>
+                    <div class="slidergridcoupling" style="position: relative; top: 20%; margin: 0%;">
+                        <div>
+                            <div class="slidecontainer">
+                                <div style="display: block; margin-left: auto; margin-right: auto; width: 100%;">
+                                    <p style="margin: 0; display: inline;">\( c_1= \)</p>
+                                    <p id="pC1" style="margin: 0; display: inline;"></p>
+                                </div>
+                                <div>
+                                    <input type="range" min="1" max="16" class="slider" id="pC1Slider" step = 0.1>
+                                </div>
+                            
+                                <script>document.getElementById("pC1Slider").value = c1</script>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="slidecontainer">
+                                <div style="display: block; margin-left: auto; margin-right: auto;">
+                                    <p style="margin: 0; display: inline;">\( c_2= \)</p>
+                                    <p id="pC2" style="margin: 0; display: inline;"></p>
+                                </div>
+                                <div>
+                                    <input type="range" min="1" max="16" class="slider" id="pC2Slider" step = 0.1>
+                                </div>
+                                <script>document.getElementById("pC2Slider").value = c2</script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 
-                 
-                <input type="range" min="1" max="16" class="slider" id="pC1Slider" step = 0.1>
-                <p style="margin: 0; display: inline;">\( c_1= \)</p>
-                <p id="pC1" style="margin: 0; display: inline;"></p>
-                <script>document.getElementById("pC1Slider").value = c1</script>
+                <div id="couplingFuncPlot"></div>
             </div>
-
-            <div class="slidecontainer">
-                
-                <input type="range" min="1" max="16" class="slider" id="pC2Slider" step = 0.1>
-                <p style="margin: 0; display: inline;">\( c_2 =\)</p>
-                <p id="pC2"style="margin: 0; display: inline;"></p>
-                <script>document.getElementById("pC2Slider").value = c2</script>
-            </div>
+            
+            
 
             <script>
 
@@ -155,9 +177,51 @@
             <h2>Simulations</h2>
 
             <p> Here we show some simulations of the system.</p>
-            
-            <div id="simulationPlot" style="width:90%; align-items: center; margin-top: 0%;"></div>
 
+            <div style="display: grid; grid-template-columns: 0.3fr 1fr; grid-auto-rows: minmax(300px, auto);">
+                <div>
+                    <div class="slidecontainer">
+                        <div style="display: block; margin-left: auto; margin-right: auto; width: 100%;">
+                            <p style="margin: 0; display: inline;">\( \omega= \)</p>
+                            <p id="p1" style="margin: 0; display: inline;"></p>
+                        </div>
+                        <div>
+                            <input type="range" min="0.2" max="2" class="slider" id="p1Slider" step = 0.01>
+                        </div>
+                    
+                        <script>document.getElementById("p1Slider").value = p1</script>
+                    </div>
+    
+                    <div class="slidecontainer">
+                        <div style="display: block; margin-left: auto; margin-right: auto; width: 100%;">
+                            <p style="margin: 0; display: inline;">\( k= \)</p>
+                            <p id="p2" style="margin: 0; display: inline;"></p>
+                        </div>
+                        <div>
+                            <input type="range" min="0" max="2.5" class="slider" id="p2Slider" step = 0.01>
+                        </div>
+                        <script>document.getElementById("p2Slider").value = p2</script>
+                    </div>
+
+                    <div class="slidecontainer">
+                        <div style="display: block; margin-left: auto; margin-right: auto; width: 100%;">
+                            <p style="margin: 0; display: inline;">\( \alpha= \)</p>
+                            <p id="p3" style="margin: 0; display: inline;"></p>
+                        </div>
+                        <div>
+                            <input type="range" min="0" max="2.5" class="slider" id="p3Slider" step = 0.01>
+                        </div>
+                        <script>document.getElementById("p3Slider").value = p3</script>
+                    </div>
+
+                </div>
+                
+
+                <div id="simulationPlot"></div>
+            </div>
+            
+            
+            
             <script>
 
                 function plotSim(c1, c2) {
@@ -190,7 +254,8 @@
                             x:timeData, 
                             y:phiData, 
                             mode:"lines",
-                            name: "$\cos(\phi)$"
+                            name: "$\cos(\phi)$",
+
                         },
                         { // Theta
                             x:timeData, 
@@ -226,47 +291,24 @@
                 plotSim(c1, c2)
                 
             </script>
-
-            <div class="slidecontainer">                  
-                <input type="range" min="0.2" max="2" class="slider" id="p1Slider" step = 0.01>
-                <p style="margin: 0; display: inline;">\( \omega= \)</p>
-                <p id="p1" style="margin: 0; display: inline;"></p>
-                <script>document.getElementById("p1Slider").value = p1</script>
-            </div>
-
-            <div class="slidecontainer">                  
-                <input type="range" min="0" max="2.5" class="slider" id="p2Slider" step = 0.01>
-                <p style="margin: 0; display: inline;">\( k= \)</p>
-                <p id="p2" style="margin: 0; display: inline;"></p>
-                <script>document.getElementById("p2Slider").value = p2</script>
-            </div>
-
-            <div class="slidecontainer">                  
-                <input type="range" min="0.5" max="3" class="slider" id="p3Slider" step = 0.05>
-                <p style="margin: 0; display: inline;">\( \alpha= \)</p>
-                <p id="p3" style="margin: 0; display: inline;"></p>
-                <script>document.getElementById("p3Slider").value = p3</script>
-            </div>
+            
+            
+            
 
         </section>
         
 
 
-
-        <div class="slidecontainer">
-            <input type="range" min="1" max="100" value="50" class="slider" id="myRange" oninput="myTestFunction()">
-        </div>
-
-        <p id = "paragraphTag"></p>
-
-        <script>
-            console.log(coupling_func(2));
-            document.getElementById("paragraphTag").innerHTML = coupling_func(2);
-        </script>
+    
 
 
     </div>
 
     <script src="sliders_update.js"></script>
   </body>
+  <footer>
+    <div style="padding-bottom: 50px;">
+        
+    </div>
+  </footer>
 </html>
