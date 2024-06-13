@@ -14,3 +14,16 @@ html, body {
 .slider:hover {
   opacity: 1; /* Fully shown on mouse-over */
 }
+
+p {
+  text-align: justify;
+  line-height: 120%;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(249, 168, 81);
+}
+a:hover {
+  text-decoration: underline;
+}

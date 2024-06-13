@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Line Chart JS</title>
+    <title>Unclocklike biological oscillators with frequency memory</title>
     <script type="text/javascript" async
     src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
     </script>
@@ -27,28 +27,46 @@
     
     <div>
     
-        <h1>Unclocklike biological oscillators with frequency memory </h1>
+        <h1 style="margin-bottom: 0;">Unclocklike biological oscillators with frequency memory </h1>
+        <h4 style="margin-top: 0;">Christian M. Denis, Paul François</h4>
 
-        <p id = "getTest"> 
-            On this page, you will find some interactive simulations of some of the models presented in 
-            <a href="https://doi.org/10.48550/arXiv.2405.05180">this preprint</a>. Here we are simulating the system
+        <section>
+
+            <p> 
+                On this page, you will find some interactive simulations of some of the models presented in 
+                <a href="https://doi.org/10.48550/arXiv.2405.05180">this preprint</a>. Here we are simulating the system
+                
+                $$
+                    \begin{cases}
+                    \dot{\phi} = 2\pi f(x) + k \sin(\theta - \phi) \\
+                    \dot{\theta} = 2 \pi \omega \\
+                    \dot{x} = -\alpha \left(x - \frac{\dot{\phi}}{2\pi}\right)
+    
+                    \end{cases}
+                $$
+                Although this model could potentially be applied to other systems, it was initially motivated by work done on the entrainment of the segmentation
+                clock. More specifically, it was motivated by the results from <a href="https://doi.org/10.7554/eLife.79575">this paper</a>. In this context, the variables represent:
+                <ul>
+                    <li>\(\phi\): The phase of <em style="color: rgb(48, 162, 249);">the segmentation clock</em>.</li>
+                    <li>\(\theta \): The phase of <em style="color: rgb(218, 118, 80);">the external oscillatory perturbation</em> entraining the segmentation clock</li>
+                    <li>\( x \): A phenomenological dynamical "memory" variable corresponding to <em style="color: rgb(41, 110, 28);">the frequency of the segmentation clock</em>.</li>
+                </ul>
+            </p>
+            <div>
+                <img src="img/schematic.svg" alt="Experimental schematic" style="display: block; margin-left: auto; margin-right: auto; width: 100%; max-width: 900px; margin-top: 20px;">
+            </div>
+
+            <p>
+                The motivating biological system corresponds to the oscillations in the Notch signalling pathway inside of the mouse embryo tailbud.
+                These oscillations are part of plethora of interacting oscillations collectively forming the segmentation clock.
+                After applying periodic pulses of DAPT (a Notch inhibitor) in this system through a microfluidics chip, we observe the Notch oscillations being entrained to the external perturbation.
+                Experimental evidence suggests that the segmentation clock adapts its intrinsic frequency to that of the entraining frequency.
+            </p>
             
-            $$
-                \begin{cases}
-                \dot{\phi} = 2\pi f(x) + k \sin(\theta - \phi) \\
-                \dot{\theta} = 2 \pi \omega \\
-                \dot{x} = -\alpha \left(x - \frac{\dot{\phi}}{2\pi}\right)
 
-                \end{cases}
-            $$
-            Although this model could potentially be applied to other systems, it was initially motivated by work done on the entrainment of the segmentation
-            clock. In this context, the variables represent:
-            <ul>
-                <li>\(\phi\): The phase of the segmentation clock.</li>
-                <li>\(\theta \): The phase of the external oscillatory perturbation entraining the segmentation clock</li>
-                <li>\( x \): A phenomenological dynamical "memory" variable corresponding to the frequency of the segmentation clock.</li>
-            </ul>
-        </p>
+        </section>
+
+        
 
         <section> <!-- Coupling function -->
             <h2 style="margin: 0;">
@@ -63,7 +81,7 @@
                 
                  
                 <input type="range" min="1" max="16" class="slider" id="pC1Slider" step = 0.1>
-                <p style="margin: 0; display: inline;">\( c_1 \):</p>
+                <p style="margin: 0; display: inline;">\( c_1= \)</p>
                 <p id="pC1" style="margin: 0; display: inline;"></p>
                 <script>document.getElementById("pC1Slider").value = c1</script>
             </div>
@@ -71,7 +89,7 @@
             <div class="slidecontainer">
                 
                 <input type="range" min="1" max="16" class="slider" id="pC2Slider" step = 0.1>
-                <p style="margin: 0; display: inline;">\( c_2 \):</p>
+                <p style="margin: 0; display: inline;">\( c_2 =\)</p>
                 <p id="pC2"style="margin: 0; display: inline;"></p>
                 <script>document.getElementById("pC2Slider").value = c2</script>
             </div>
@@ -155,8 +173,8 @@
                         0.01
                     )
 
-                    console.log('THE TRAJ ARRAY:')
-                    console.log(traj)
+                    //console.log('THE TRAJ ARRAY:')
+                    //console.log(traj)
 
 
 
@@ -209,6 +227,26 @@
                 
             </script>
 
+            <div class="slidecontainer">                  
+                <input type="range" min="0.2" max="2" class="slider" id="p1Slider" step = 0.01>
+                <p style="margin: 0; display: inline;">\( \omega= \)</p>
+                <p id="p1" style="margin: 0; display: inline;"></p>
+                <script>document.getElementById("p1Slider").value = p1</script>
+            </div>
+
+            <div class="slidecontainer">                  
+                <input type="range" min="0" max="2.5" class="slider" id="p2Slider" step = 0.01>
+                <p style="margin: 0; display: inline;">\( k= \)</p>
+                <p id="p2" style="margin: 0; display: inline;"></p>
+                <script>document.getElementById("p2Slider").value = p2</script>
+            </div>
+
+            <div class="slidecontainer">                  
+                <input type="range" min="0.5" max="3" class="slider" id="p3Slider" step = 0.05>
+                <p style="margin: 0; display: inline;">\( \alpha= \)</p>
+                <p id="p3" style="margin: 0; display: inline;"></p>
+                <script>document.getElementById("p3Slider").value = p3</script>
+            </div>
 
         </section>
         
