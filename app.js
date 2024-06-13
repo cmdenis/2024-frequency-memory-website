@@ -20,14 +20,11 @@ function direct_core_diff(x, p){
     // p[0] = frequency of entraining oscillator
     // p[1] = coupling strength
     // p[2] = time scale for the x variable
-
-    console.log(coupling_func(x[2], c1, c2))
+    //onsole.log(p)
 
     x0 = 2*Math.PI*coupling_func(x[2], c1, c2) + p[1]*Math.sin(x[1] - x[0])   
     x1 = 2*Math.PI*p[0]
     x2 = -p[2]*(x[2] - x0/(2*Math.PI))
-
-
 
     return [x0, x1, x2]
 }
@@ -43,8 +40,8 @@ function integrator(diff, p, u0, tStart, tEnd, timeStep){
     let xVar = u0[2];
 
     // Array storing the values of the simulations
-    let phi_arr = [phi];
-    let theta_arr = [theta];
+    let phi_arr = [Math.cos(phi)];
+    let theta_arr = [Math.cos(theta)];
     let xVar_arr = [xVar];
     let t_arr = [tStart];
     

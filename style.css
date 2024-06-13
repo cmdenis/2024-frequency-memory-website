@@ -16,7 +16,7 @@ html, body {
 .slider {
   -webkit-appearance: none;
   width: 90% ;
-  height: 10px;
+  height: 5px;
   border-radius: 2px;   
   background: #b4b4b4;
   outline: none;

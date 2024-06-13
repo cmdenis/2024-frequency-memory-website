@@ -62,15 +62,57 @@ p2Slider.oninput = function() {
 
 // Slider for simulation parameter p3
 let p3Slider = document.getElementById("p3Slider");
+
 document.getElementById("p3").innerHTML = p3Slider.value;
 p3 = p3Slider.value
+//console.log(typeof(p3))
 
 
 p3Slider.oninput = function() {
     document.getElementById("p3").innerHTML = this.value;
     p3 = this.value
     plotSim(c1, c2)
+
 }
 
+
+// Slider for initial condition for phi
+let u0_1Slider = document.getElementById("u0_1Slider");
+
+document.getElementById("u0_1").innerHTML = u0_1Slider.value;
+u0_1 = Number(u0_1Slider.value)
+
+u0_1Slider.oninput = function() {
+    document.getElementById("u0_1").innerHTML = this.value;
+    u0_1 = Number(this.value)
+    plotSim(c1, c2)
+
+}
+
+// Slider for initial condition for theta
+let u0_2Slider = document.getElementById("u0_2Slider");
+
+document.getElementById("u0_2").innerHTML = u0_2Slider.value;
+u0_2 = Number(u0_2Slider.value)
+
+u0_2Slider.oninput = function() {
+    document.getElementById("u0_2").innerHTML = this.value;
+    u0_2 = Number(this.value)
+    plotSim(c1, c2)
+
+}
+
+// Slider for initial condition for x
+let u0_3Slider = document.getElementById("u0_3Slider");
+
+document.getElementById("u0_3").innerHTML = u0_3Slider.value;
+u0_3 = Number(u0_3Slider.value)
+
+u0_3Slider.oninput = function() {
+    document.getElementById("u0_3").innerHTML = this.value;
+    u0_3 = Number(this.value)
+    plotSim(c1, c2)
+
+}
 
 
