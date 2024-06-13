@@ -11,3 +11,6 @@ var p3 = 1.5
 var u0_1 = 0
 var u0_2 = 0
 var u0_3 = 1.5
+
+// Meta params
+var simulationTime = 5

@@ -115,4 +115,17 @@ u0_3Slider.oninput = function() {
 
 }
 
+// Slider for final time
+let timeSlider = document.getElementById("timeSlider");
+
+//document.getElementById("u0_3").innerHTML = u0_3Slider.value;
+simulationTime = Number(timeSlider.value)
+
+timeSlider.oninput = function() {
+    //document.getElementById("u0_3").innerHTML = this.value;
+    simulationTime = Number(this.value)
+    plotSim(c1, c2)
+
+}
+
 

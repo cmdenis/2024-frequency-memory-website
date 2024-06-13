@@ -60,7 +60,7 @@
 
             <p>
                 The motivating biological system corresponds to the oscillations in the Notch signalling pathway inside of the mouse embryo tailbud.
-                These oscillations are part of plethora of interacting oscillations collectively forming the segmentation clock.
+                These oscillations are part of a plethora of interacting oscillations collectively forming the segmentation clock.
                 After applying periodic pulses of DAPT (a Notch inhibitor) in this system through a microfluidics chip, we observe the Notch oscillations being entrained to the external perturbation.
                 Experimental evidence suggests that the segmentation clock adapts its intrinsic frequency to that of the entraining frequency.
             </p>
@@ -254,10 +254,17 @@
                     
 
                 </div>
-                
 
-                <div id="simulationPlot"></div>
+        
+                <div id="simulationPlot" style="height: 400px;"></div>
             </div>
+
+            <div>
+                <p style="height: 10px;"><b>Time:</b></p>
+                <input type="range" min="2" max="20" class="slider" id = "timeSlider" step = 0.01> 
+                <script>document.getElementById("timeSlider").value = simulationTime</script>
+            </div>
+            
             
             
             
@@ -271,7 +278,7 @@
                         [p1, p2, p3],
                         [u0_1, u0_2, u0_3], 
                         0, 
-                        5, 
+                        simulationTime, 
                         0.01
                     )
 
@@ -345,7 +352,7 @@
     <script src="sliders_update.js"></script>
   </body>
   <footer>
-    <div style="padding-bottom: 50px;">
+    <div style="padding-bottom: 80px;">
         
     </div>
   </footer>
