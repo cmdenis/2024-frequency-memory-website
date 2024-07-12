@@ -1,0 +1,275 @@
+<section>
+  <h2>Simulations</h2>
+
+  <p>Here we show some simulations of the system.</p>
+  <p>
+    We use different parameters that you can tweak for the simulations below.
+    These are:
+  </p>
+
+  <ul>
+    <li>
+      \(\omega\): The frequency of the entraining oscillator (orange). The
+      higher the value, the faster \(\theta\) oscillates.
+    </li>
+    <li>
+      \(k\): The strength of the coupling between the entraining and entrained
+      oscillator. In other words, how strong does \(\phi\) (blue) try to match
+      \(\theta\) (orange).
+    </li>
+    <li>
+      \(x\): The time scale of \(x\). The how fast does the memory variable
+      (green) move.
+    </li>
+  </ul>
+  <p>
+    On top of these parameters, there are also some initial conditions for each
+    of the three variables of the system.
+  </p>
+
+  <div
+    style="
+      display: grid;
+      grid-template-columns: 0.3fr 1fr;
+      grid-auto-rows: minmax(300px, auto);
+    ">
+    <div>
+      <p style="height: 5px"><b>Parameters:</b></p>
+
+      <div class="slidecontainer">
+        <div
+          style="
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+          ">
+          <p style="margin: 0; display: inline">\( \omega= \)</p>
+          <p id="p1" style="margin: 0; display: inline"></p>
+        </div>
+        <div>
+          <input
+            type="range"
+            min="0.2"
+            max="2"
+            class="slider"
+            id="p1Slider"
+            step="0.01" />
+        </div>
+
+        <script>
+          document.getElementById("p1Slider").value = p1;
+        </script>
+      </div>
+
+      <div class="slidecontainer">
+        <div
+          style="
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+          ">
+          <p style="margin: 0; display: inline">\( k= \)</p>
+          <p id="p2" style="margin: 0; display: inline"></p>
+        </div>
+        <div>
+          <input
+            type="range"
+            min="0"
+            max="2.5"
+            class="slider"
+            id="p2Slider"
+            step="0.01" />
+        </div>
+        <script>
+          document.getElementById("p2Slider").value = p2;
+        </script>
+      </div>
+
+      <div class="slidecontainer">
+        <div
+          style="
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+          ">
+          <p style="margin: 0; display: inline">\( \alpha= \)</p>
+          <p id="p3" style="margin: 0; display: inline"></p>
+        </div>
+        <div>
+          <input
+            type="range"
+            min="0"
+            max="2.5"
+            class="slider"
+            id="p3Slider"
+            step="0.01" />
+        </div>
+        <script>
+          document.getElementById("p3Slider").value = p3;
+        </script>
+      </div>
+
+      <p style="height: 10px"><b>Init. Cond.:</b></p>
+
+      <div class="slidecontainer">
+        <div
+          style="
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+          ">
+          <p style="margin: 0; display: inline">\( \phi(0)= \)</p>
+          <p id="u0_1" style="margin: 0; display: inline"></p>
+        </div>
+        <div>
+          <input
+            type="range"
+            min="0"
+            max="6.28"
+            class="slider"
+            id="u0_1Slider"
+            step="0.01" />
+        </div>
+        <script>
+          document.getElementById("u0_1Slider").value = u0_1;
+        </script>
+      </div>
+
+      <div class="slidecontainer">
+        <div
+          style="
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+          ">
+          <p style="margin: 0; display: inline">\( \theta(0)= \)</p>
+          <p id="u0_2" style="margin: 0; display: inline"></p>
+        </div>
+        <div>
+          <input
+            type="range"
+            min="0"
+            max="6.28"
+            class="slider"
+            id="u0_2Slider"
+            step="0.01" />
+        </div>
+        <script>
+          document.getElementById("u0_2Slider").value = u0_2;
+        </script>
+      </div>
+
+      <div class="slidecontainer">
+        <div
+          style="
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+          ">
+          <p style="margin: 0; display: inline">\( x(0)= \)</p>
+          <p id="u0_3" style="margin: 0; display: inline"></p>
+        </div>
+        <div>
+          <input
+            type="range"
+            min="0.5"
+            max="4"
+            class="slider"
+            id="u0_3Slider"
+            step="0.01" />
+        </div>
+        <script>
+          document.getElementById("u0_3Slider").value = u0_3;
+        </script>
+      </div>
+    </div>
+
+    <div id="simulationPlot" style="height: 400px"></div>
+  </div>
+
+  <div>
+    <p style="height: 10px"><b>Time:</b></p>
+    <input
+      type="range"
+      min="2"
+      max="20"
+      class="slider"
+      id="timeSlider"
+      step="0.01" />
+    <script>
+      document.getElementById("timeSlider").value = simulationTime;
+    </script>
+  </div>
+
+  <script>
+    function plotSim(c1, c2) {
+      // First, we get the data from the simulations
+      //console.log("p3 is:", typeof(p3))
+      traj = integrator(
+        direct_core_diff,
+        [p1, p2, p3],
+        [u0_1, u0_2, u0_3],
+        0,
+        simulationTime,
+        0.01
+      );
+
+      //console.log('THE TRAJ ARRAY:')
+      //console.log(traj)
+
+      // x and y axis
+      const timeData = traj[0];
+      const phiData = traj[1];
+      const thetaData = traj[2];
+      const xData = traj[3];
+
+      const data = [
+        {
+          // Phi
+          x: timeData,
+          y: phiData,
+          mode: "lines",
+          name: "$\cos(ϕ)$",
+        },
+        {
+          // Theta
+          x: timeData,
+          y: thetaData,
+          mode: "lines",
+          name: "$\cos(θ)$",
+        },
+        {
+          // x
+          x: timeData,
+          y: xData,
+          mode: "lines",
+          name: "$x$",
+        },
+      ];
+      const layout = {
+        title: false,
+        xaxis: {
+          title: "Time",
+        },
+        yaxis: {
+          title: "Amplitude",
+        },
+        margin: {
+          t: 10,
+        },
+      };
+
+      const config = { responsive: true };
+
+      Plotly.newPlot("simulationPlot", data, layout, config);
+    }
+
+    plotSim(c1, c2);
+  </script>
+</section>
