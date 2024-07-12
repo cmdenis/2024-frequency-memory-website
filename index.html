@@ -293,7 +293,7 @@
               <input
                 type="range"
                 min="0.2"
-                max="2"
+                max="2.4"
                 class="slider"
                 id="p1Slider"
                 step="0.01" />
@@ -464,7 +464,7 @@
               [u0_1, u0_2, u0_3],
               0,
               simulationTime,
-              0.01
+              0.001
             );
           } else if (
             document.getElementById("model-selector").value == "pulsatileCore"
@@ -475,7 +475,7 @@
               [u0_1, u0_2, u0_3],
               0,
               simulationTime,
-              0.01
+              0.001
             );
           } else {
             console.log("BUG!");
