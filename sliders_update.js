@@ -112,7 +112,6 @@ u0_3Slider.oninput = function() {
     document.getElementById("u0_3").innerHTML = this.value;
     u0_3 = Number(this.value)
     plotSim(c1, c2)
-
 }
 
 // Slider for final time
@@ -124,6 +123,15 @@ simulationTime = Number(timeSlider.value)
 timeSlider.oninput = function() {
     //document.getElementById("u0_3").innerHTML = this.value;
     simulationTime = Number(this.value)
+    plotSim(c1, c2)
+
+}
+
+// Selector for model
+let modelSelector = document.getElementById("model-selector");
+
+modelSelector.oninput = function() {
+    //document.getElementById("u0_3").innerHTML = this.value;
     plotSim(c1, c2)
 
 }
