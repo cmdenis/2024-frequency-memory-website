@@ -5,7 +5,7 @@ var c2 = 8
 // Parameters for simulations
 var p1 = 1
 var p2 = 1.5
-var p3 = 1.5
+var p3 = 1.
 
 // Initial conditions
 var u0_1 = 0
