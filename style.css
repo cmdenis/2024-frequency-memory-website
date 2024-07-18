@@ -64,3 +64,8 @@ a:hover {
 .slidergridcoupling{
   display: grid;
 }
+
+.plotGrid{
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}

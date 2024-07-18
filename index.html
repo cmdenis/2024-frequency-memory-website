@@ -27,6 +27,7 @@
       integrity="sha384-yACMu8JWxKzSp/C1YV86pzGiQ/l1YUfE8oPuahJQxzehAjEt2GiQuy/BIvl9KyeF"
       crossorigin="anonymous"
       onload="renderMathInElement(document.body);"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.3.2/math.js"></script>
 
     <script src="app.js"></script>
     <script src="initial_values.js"></script>
@@ -536,6 +537,59 @@
     </section>
 
     <script src="sliders_update.js"></script>
+
+    <section>
+      <h2>Hysteresis simulation</h2>
+      <p>
+        Here we demontrate how sensitive the system is to dynamical changes in
+        its parameter. This phenomenon is at the core of the hysteretic effects.
+      </p>
+
+      <div style="padding-bottom: 5px">
+        <input
+          type="range"
+          min="0"
+          max="3"
+          value="1.0"
+          class="slider"
+          step="0.01"
+          style="width: 50%"
+          oninput="this.nextElementSibling.value = 'k = ' +this.value; p2Dynamic = this.value" />
+        <output>k = 1.0</output>
+      </div>
+
+      <div style="padding-bottom: 5px">
+        <input
+          type="range"
+          min="0"
+          max="3"
+          value="1.0"
+          class="slider"
+          step="0.01"
+          style="width: 50%"
+          oninput="this.nextElementSibling.value = 'ω = ' +this.value; p1Dynamic = this.value" />
+        <output>ω = 1.0</output>
+      </div>
+
+      <div style="padding-bottom: 5px">
+        <input
+          type="range"
+          min="0."
+          max="10"
+          value="1.0"
+          class="slider"
+          step="0.01"
+          style="width: 50%"
+          oninput="this.nextElementSibling.value = 'α = ' +this.value; p3Dynamic = this.value" />
+        <output>α = 1.0</output>
+      </div>
+
+      <div class="plotGrid">
+        <div id="dynamicalOscillationsPlot"></div>
+        <div id="evolutionXPlot"></div>
+      </div>
+      <script src="dynamicalPlot.js"></script>
+    </section>
   </body>
   <footer>
     <div style="padding-bottom: 80px"></div>
