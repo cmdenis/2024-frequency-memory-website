@@ -14,7 +14,7 @@ function timeStep(u) {
 // Initial parameters
 var currentState = [0.0, 0.0, 1.]
 var p1Dynamic = 1.0
-var p2Dynamic = 1.0
+var p2Dynamic = 1.6
 var p3Dynamic = 1.0
 
 
